@@ -53,7 +53,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="/js/chat.js"></script>
     <script>
-        const socket = io()
+        const socket = io("https://robust-entity-homeway-socketio.herokuapp.com/");
 
         // Elements
         const $messageForm = document.querySelector('#message-form')

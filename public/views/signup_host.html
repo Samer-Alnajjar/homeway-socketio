@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>Sign up as a host</h2>
+  <fieldset>
+    <legend>Sign up as a host</legend>
+    <form action="/hosts/sign_up" method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="password" required>
+      <input type="text" name="first_name" placeholder="First Name" required>
+      <input type="text" name="last_name" placeholder="Last Name" required>
+      <input type="text" name="email" placeholder="Email" required>
+      <select name="country" id="select-country" required>
+        <option value="">--Please choose an option--</option>
+        <option value="Jordan">Jordan</option>
+        <option value="England">England</option>
+        <option value="Turkey">Turkey</option>
+      </select>
+      <input type="text" name="address" placeholder="Address" required>
+      <input type="text" name="category" placeholder="Category" required>
+      
+      <label for="birth_date">Birth Date:</label>
+
+      <input type="date" id="birth_date" name="birth_date" value="1995-01-01" min="1920-01-01">
+      <input type="submit">
+    </form>
+
+  </fieldset>
+</body>
+
+</html>

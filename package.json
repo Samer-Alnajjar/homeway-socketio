@@ -1,0 +1,58 @@
+{
+  "name": "homeway",
+  "version": "1.0.0",
+  "description": "- [Heroku Deployment Link]()",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test-watch": "jest --watchAll",
+    "test": "jest --coverage --verbose",
+    "sequelize": "cross-env NODE_PATH=. sequelize"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mid-term401/homeway.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mid-term401/homeway/issues"
+  },
+  "homepage": "https://github.com/mid-term401/homeway#readme",
+  "dependencies": {
+    "@admin-bro/sequelize": "^1.2.1",
+    "admin-bro": "^4.0.1",
+    "admin-bro-expressjs": "^2.1.1",
+    "admin-bro-sequelizejs": "^0.5.1",
+    "bad-words": "^3.0.4",
+    "base-64": "^1.0.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "bufferutil": "^4.0.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-admin": "^1.4.3",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.17.2",
+    "google-auth-library": "^7.0.4",
+    "jest": "^26.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
+    "pgtest": "^0.2.3",
+    "sequelize": "^6.6.2",
+    "socket.io": "^4.0.1",
+    "superagent": "^6.1.0",
+    "supertest": "^6.1.3",
+    "utf-8-validate": "^5.0.4",
+    "uuid": "^8.3.2",
+    "ws": "^7.4.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}

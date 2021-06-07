@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="google-signin-client_id" content="333642631602-h2l1m29lfb5c1d0dta76nvv4so4bjeo4.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home way</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/volunteers/sign_up">Sign up as a volunteer</a></li>
+        <li><a href="/hosts/sign_up">Sign up as a host</a></li>
+        <li><a href="/sign_in">Sign in</a></li>
+      </ul>
+
+      <form autocomplete="off" method="post" action="/searchResults">
+        <div class="autocomplete" style="width:300px;">
+          <label for="myInput">Choose a Country Name:</label>
+          <input id="myInput" type="text" name="myCountry" placeholder="Country Name">
+        </div>
+        <label for="WorkField">Choose a work field:</label>
+        <select name="WorkField" id="WorkField"  style="width:300px;">
+          <option value="agriculture">Agriculture</option>
+          <option value="animal">Animal</option>
+          <option value="art">Art</option>
+          <option value="cooking">Cooking</option>
+        </select>
+        <input type="submit">
+      </form>
+
+      <h4> Google OAuth</h4>
+      <a href="/login">Sign In By Google Account</a>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      
+    </nav>
+  </header>
+  <main>
+   
+    
+  </main>
+
+  
+</body>
+<script src="../js/app.js"></script>
+</html> 

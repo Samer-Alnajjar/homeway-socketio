@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <!--  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/SocketStyle.css">
+</head>
+
+<body>
+
+    <style>
+        
+body
+{
+  background-image: url(https://www.niche.com/blog/wp-content/uploads/2019/01/importance-of-community-service-social-2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+ 
+}
+
+main
+{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.centered-form__box
+{
+    margin: auto;
+    width: 1000px;
+    height: 200px;
+    padding-top: 180px;
+    background-color: rgba(255, 255, 255, 0.719);
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 20px 0px #026202;
+    border: 2px solid rgba(0, 0, 0, 0);
+}
+
+h1{
+    color: white;
+    text-align: center;
+    margin-top: -140px;
+    font-size: 3em;
+    color: rgba(0, 0, 0, 0.753);
+    /* text-shadow: 5px 2px 5px #ffffff; */
+    font-family: 'Fruktur', cursive;
+}
+
+button
+{
+    width: 270px;
+    height: 80px;
+    /* text-transform: uppercase; */
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    background-color: rgb(7, 85, 33);
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    font-size: 1.5em;
+  
+}
+
+button:hover {
+    background-color: #031101;
+    box-shadow: 0px 15px 20px white;
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+.chat
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+    </style>
+
+    <div class="centered-form">
+        <div class="centered-form__box">
+            <h1>
+                Room <%=data.room  %>
+            </h1>
+            <div class="chat">
+            <form action="/chatRoom" method="get">
+                <input type="hidden" name="username" value="<%=data.username%> ">
+                <input type="hidden" name="room" value="<%=data.room  %> ">
+                <button>start chat</button>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    </form>
+</body>
+
+</html>

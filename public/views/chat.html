@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="../css/SocketStyle.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../css/SocketStyle.css"/> -->
+
+    <link rel="stylesheet" type="text/css" href="../css/SocketStyle.css" />
+
+<!-- <link rel="stylesheet" type="text/css" href="{% static '../css/SocketStyle.css' %}"> -->
+
+</head>
+
+<body>
+<style>
+    
+body
+{
+  background-image: url(https://www.niche.com/blog/wp-content/uploads/2019/01/importance-of-community-service-social-2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+  
+ 
+}
+
+main
+{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.centered-form__box
+{
+    margin: auto;
+    width: 1000px;
+    height: 200px;
+    padding-top: 180px;
+    background-color: rgba(255, 255, 255, 0.719);
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 20px 0px #026202;
+    border: 2px solid rgba(0, 0, 0, 0);
+   
+}
+
+h3{
+    color: white;
+    text-align: center;
+    /* margin-top: -140px; */
+    font-size: 3em;
+    color: #026202;
+    /* text-shadow: 5px 2px 5px #ffffff; */
+    font-family: 'Fruktur', cursive;
+}
+
+
+.chatDiv
+{
+    width: 1000px;
+	height: 530px;
+    background-color: rgba(255, 255, 255, 0.719);
+	margin: 40px 0px 0px 150px;
+    text-align: center;
+    padding-top: 30px;
+    box-shadow: 0px 0px 20px 0px #026202;
+    border-radius: px;
+	overflow-y: scroll;
+    border-radius: 10px;
+    
+    
+}
+
+ul{
+    list-style-type: none;
+    
+}
+
+li{
+    color: white;
+    font-size: 2em;
+    display:inline;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    background-color: #291600b2;
+}
+
+.message__name
+{
+    color: white;
+    font-size: 1.2em;
+    display:inline;
+    padding: 5px;
+    /* margin: 20px; */
+    border-radius: 5px;
+    background-color: #291600b2;
+}
+
+.message__meta
+{
+    font: bold;
+    color: #291600b2;
+    font-family: 'Fruktur', cursive;
+    font-family: 'Orelega One', cursive;
+}
+
+.messageStyle
+{
+    text-align: center;
+    padding: 2px;
+    /* margin: 20px; */
+    border-radius: 20px;
+    width: 30%;
+    background-color: #291600b2;
+    color: white;
+    font-size: 1.4em;
+    margin-left: 350px;
+
+}
+
+input
+{
+    text-align: center;
+    padding: 2px;
+    /* margin: 20px; */
+    border-radius: 20px;
+    width: 60%;
+    background-color: #ffffffb2;
+    color: #291600b2;
+    font-size: 1.4em;
+    margin-left: 110px;
+    margin-top: 20px;
+    height: 35px;
+}
+
+button
+{
+    width: 120px;
+    height: 35px;
+    /* text-transform: uppercase; */
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    background-color: rgba(7, 85, 33, 0.746);
+    border: none;
+    /* border-radius: 45px; */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    font-size: 1.2em;
+   
+  
+}
+
+button:hover {
+    background-color: #031101;
+    box-shadow: 0px 15px 20px white;
+    color: #fff;
+    transform: translateY(-7px);
+  }
+</style>
+
+<div class="chatDiv">
+    <div class="chat">
+        <div id="sidebar" class="chat__sidebar">
+
+        </div>
+        <div class="chat__main">
+            <div id="messages" class="chat__messages"></div>
+
+            <div class="compose">
+                <form id="message-form">
+                    <input name="message" placeholder="Message" required autocomplete="off">
+                    <button>Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="classmessage">
+    <script id="message-template" type="text/html">
+        <div class="message">
+            <p>
+                <span class="message__name">{{username}}</span>
+                <span class="message__meta">{{createdAt}}</span>
+            </p>
+            <p class="messageStyle">{{message}}</p>
+        </div>
+    </script>
+   </div>
+
+
+
+    <script id="sidebar-template" type="text/html" >
+        <h2 class="room-title" hidden>Room {{room}}</h2>
+          <!-- 1 -->
+        <h3 class="list-title" >Users</h3> 
+        <br>
+         <!-- 2 -->
+        <ul class="users">
+            {{#users}}
+            <li>{{username}}</li>
+            {{/users}}
+        </ul>
+    </script>
+
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="../js/chat.js"></script> -->
+    <script>
+        const socket = io("http://localhost:9000");
+
+        // Elements
+        const $messageForm = document.querySelector('#message-form')
+        const $messageFormInput = $messageForm.querySelector('input')
+        const $messageFormButton = $messageForm.querySelector('button')
+        const $messages = document.querySelector('#messages')
+
+        // Templates
+        const messageTemplate = document.querySelector('#message-template').innerHTML
+        const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML
+
+        // Options
+        const {
+            username,
+            room
+        } = Qs.parse(location.search, {
+            ignoreQueryPrefix: true
+        })
+
+        const autoscroll = () => {
+            // New message element
+            const $newMessage = $messages.lastElementChild
+
+            // Height of the new message
+            const newMessageStyles = getComputedStyle($newMessage)
+            const newMessageMargin = parseInt(newMessageStyles.marginBottom)
+            const newMessageHeight = $newMessage.offsetHeight + newMessageMargin
+
+            // Visible height
+            const visibleHeight = $messages.offsetHeight
+
+            // Height of messages container
+            const containerHeight = $messages.scrollHeight
+
+            // How far have I scrolled?
+            const scrollOffset = $messages.scrollTop + visibleHeight
+
+            if (containerHeight - newMessageHeight <= scrollOffset) {
+                $messages.scrollTop = $messages.scrollHeight
+            }
+        }
+
+        socket.on('message', (message) => {
+            const html = Mustache.render(messageTemplate, {
+                username: message.username,
+                message: message.text,
+                createdAt: moment(message.createdAt).format('h:mm a')
+            })
+            $messages.insertAdjacentHTML('beforeend', html)
+            autoscroll()
+        })
+
+
+
+        socket.on('roomData', ({
+            room,
+            users
+        }) => {
+            const html = Mustache.render(sidebarTemplate, {
+                room,
+                users
+            })
+            document.querySelector('#sidebar').innerHTML = html
+        })
+
+        $messageForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+
+            $messageFormButton.setAttribute('disabled', 'disabled')
+
+            const message = e.target.elements.message.value
+
+            socket.emit('sendMessage', message, (error) => {
+                $messageFormButton.removeAttribute('disabled')
+                $messageFormInput.value = ''
+                $messageFormInput.focus()
+
+                if (error) {
+                    return console.log(error)
+                }
+
+            })
+        })
+
+
+
+        socket.emit('join', {
+            username,
+            room
+        }, (error) => {
+            if (error) {
+                alert(error)
+                location.href = '/chat'
+            }
+        })
+    </script>
+</body>
+
+</html>

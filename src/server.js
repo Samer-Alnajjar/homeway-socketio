@@ -172,142 +172,142 @@ function checkAuthenticated(req, res, next) {
 
 // ****************************SOCKETIO*******************************
 const server = http.createServer(app);
-// const io = socketio(server);
+const io = socketio(server);
 
-// const users = []
+const users = []
 
-// const addUser = ({ id, username, room }) => {
-//     // Clean the data
-//     username = username.trim().toLowerCase()
-//     room = room.trim().toLowerCase()
-//     // Validate the data
-//     if (!username || !room) {
-//         return {
-//             error: 'Username and room are required!'
-//         }
-//     }
+const addUser = ({ id, username, room }) => {
+    // Clean the data
+    username = username.trim().toLowerCase()
+    room = room.trim().toLowerCase()
+    // Validate the data
+    if (!username || !room) {
+        return {
+            error: 'Username and room are required!'
+        }
+    }
 
-//     // Check for existing user
-//     const existingUser = users.find((user) => {
-//         return user.room === room && user.username === username
-//     })
+    // Check for existing user
+    const existingUser = users.find((user) => {
+        return user.room === room && user.username === username
+    })
 
-//     // Validate username
-//     if (existingUser) {
-//         return {
-//             error: 'Username is in use!'
-//         }
-//     }
+    // Validate username
+    if (existingUser) {
+        return {
+            error: 'Username is in use!'
+        }
+    }
 
-//     // Store user
-//     const user = { id, username, room }
-//     users.push(user)
-//     return { user }
-// }
+    // Store user
+    const user = { id, username, room }
+    users.push(user)
+    return { user }
+}
 
-// const removeUser = (id) => {
-//     const index = users.findIndex((user) => user.id === id)
-//     if (index !== -1) {
-//         return users.splice(index, 1)[0]
-//     }
-// }
+const removeUser = (id) => {
+    const index = users.findIndex((user) => user.id === id)
+    if (index !== -1) {
+        return users.splice(index, 1)[0]
+    }
+}
 
-// const getUser = (id) => {
-//     return users.find((user) => user.id === id)
-// }
+const getUser = (id) => {
+    return users.find((user) => user.id === id)
+}
 
-// const getUsersInRoom = (room) => {
-//     room = room.trim().toLowerCase()
-//     return users.filter((user) => user.room === room)
-// }
+const getUsersInRoom = (room) => {
+    room = room.trim().toLowerCase()
+    return users.filter((user) => user.room === room)
+}
 
-// const generateMessage = (username, text) => {
-//   return {
-//       username,
-//       text,
-//       createdAt: new Date().getTime()
-//   }
-// }
+const generateMessage = (username, text) => {
+  return {
+      username,
+      text,
+      createdAt: new Date().getTime()
+  }
+}
 
 // socket
-// io.on('connection', (socket) => {
-//   console.log('New WebSocket connection')
+io.on('connection', (socket) => {
+  console.log('New WebSocket connection')
 
-//   socket.on('join', (options, callback) => {
-//       const { error, user } = addUser({ id: socket.id, ...options })
+  socket.on('join', (options, callback) => {
+      const { error, user } = addUser({ id: socket.id, ...options })
 
-//       if (error) {
-//           return callback(error)
-//       }
+      if (error) {
+          return callback(error)
+      }
 
-//       socket.join(user.room)
+      socket.join(user.room)
 
-//       socket.emit('message', generateMessage(`${user.room}`, `Welcome ${user.username}`))
-//       socket.broadcast.to(user.room).emit('message', generateMessage('Admin', `${user.username} has joined!`))
-//       io.to(user.room).emit('roomData', {
-//           room: user.room,
-//           users: getUsersInRoom(user.room)
-//       })
-//       callback()
-//   })
+      socket.emit('message', generateMessage(`${user.room}`, `Welcome ${user.username}`))
+      socket.broadcast.to(user.room).emit('message', generateMessage('Admin', `${user.username} has joined!`))
+      io.to(user.room).emit('roomData', {
+          room: user.room,
+          users: getUsersInRoom(user.room)
+      })
+      callback()
+  })
 
-//   socket.on('sendMessage', (message, callback) => {
-//       const user = getUser(socket.id)
-//       const filter = new Filter()
+  socket.on('sendMessage', (message, callback) => {
+      const user = getUser(socket.id)
+      const filter = new Filter()
 
-//       if (filter.isProfane(message)) {
-//           return callback('Profanity is not allowed!')
-//       }
+      if (filter.isProfane(message)) {
+          return callback('Profanity is not allowed!')
+      }
 
-//       io.to(user.room).emit('message', generateMessage(user.username, message))
-//       callback()
-//   })
+      io.to(user.room).emit('message', generateMessage(user.username, message))
+      callback()
+  })
 
-//   socket.on('disconnect', () => {
-//       const user = removeUser(socket.id)
-//       if (user) {
-//           io.to(user.room).emit('message', generateMessage('Admin', `${user.username} has left!`))
-//           io.to(user.room).emit('roomData', {
-//               room: user.room,
-//               users: getUsersInRoom(user.room)
-//           })
-//       }
-//   })
-// })
+  socket.on('disconnect', () => {
+      const user = removeUser(socket.id)
+      if (user) {
+          io.to(user.room).emit('message', generateMessage('Admin', `${user.username} has left!`))
+          io.to(user.room).emit('roomData', {
+              room: user.room,
+              users: getUsersInRoom(user.room)
+          })
+      }
+  })
+})
 
-// app.get('/volunteer/:volId/host/:hostId/chat', handleVolunteerSocket)
-// app.get('/host/:hostId/volunteer/:volId/chat', handleHostSocket)
-// app.get('/chatRoom', handelChat)
+app.get('/volunteer/:volId/host/:hostId/chat', handleVolunteerSocket)
+app.get('/host/:hostId/volunteer/:volId/chat', handleHostSocket)
+app.get('/chatRoom', handelChat)
 
-// // Socketio functions
+// Socketio functions
 
-// async function handleVolunteerSocket(req, res) {
-//   let volId = req.params.volId;
-//   let hostId = req.params.hostId;
-//   let roomId = hostId;
-//   const volunteerSearch = "select * from volunteer where id = $1;";
-//   let volunteerData = await client.query(volunteerSearch, [volId]);
-//   console.log(volunteerData.rows[0]);
-//   let data = {username: volunteerData.rows[0].user_name, room: hostId};
-//   // // console.log(data);
+async function handleVolunteerSocket(req, res) {
+  let volId = req.params.volId;
+  let hostId = req.params.hostId;
+  let roomId = hostId;
+  const volunteerSearch = "select * from volunteer where id = $1;";
+  let volunteerData = await client.query(volunteerSearch, [volId]);
+  console.log(volunteerData.rows[0]);
+  let data = {username: volunteerData.rows[0].user_name, room: hostId};
+  // // console.log(data);
 
-//     res.render("joinroom", {data});
-// }
+    res.render("joinroom", {data});
+}
 
-// async function handleHostSocket(req, res) {
-//   let volId = req.params.volId;
-//   let hostId = req.params.hostId;
-//   const searchHost = "select * from host where id = $1;";
-//   let hostData = await client.query(searchHost, [hostId]);
+async function handleHostSocket(req, res) {
+  let volId = req.params.volId;
+  let hostId = req.params.hostId;
+  const searchHost = "select * from host where id = $1;";
+  let hostData = await client.query(searchHost, [hostId]);
 
-//   console.log(hostData.rows);
-//   let data = {username: hostData.rows[0].user_name, room: hostId};
-//   res.render("joinroom", {data})
-// }
+  console.log(hostData.rows);
+  let data = {username: hostData.rows[0].user_name, room: hostId};
+  res.render("joinroom", {data})
+}
 
-// function handelChat(req, res) {
-//   res.render('chat')
-// }
+function handelChat(req, res) {
+  res.render('chat')
+}
 
 // *******************************************************************
 
